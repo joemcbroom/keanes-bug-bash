@@ -169,8 +169,9 @@
   inset: -12%;
   z-index: 0;
   background-repeat: repeat;
+  background-position: top left;
   background-size: 180px 180px;
-  opacity: 0.7;
+  opacity: 0.5;
   filter: blur(0.6px);
   mix-blend-mode: multiply;
   transform: scale(1.2) rotate(-3deg);

@@ -52,14 +52,14 @@
   position: absolute;
   top: var(--y0);
   left: var(--x0);
-  width: var(--bug-size);
-  height: var(--bug-size);
+  width: var(--sprite-window);
+  height: var(--sprite-window);
   background-repeat: no-repeat;
   background-size: 544px 512px;
   background-position: var(--sprite-x0) var(--sprite-y);
   image-rendering: pixelated;
   filter: drop-shadow(0 3px 1px rgba(42, 74, 25, 0.18));
-  transform: translate(-50%, -50%) rotate(var(--r0)) scaleX(var(--facing));
+  transform: translate(-50%, -50%) rotate(var(--r0)) scale(var(--sprite-scale)) scaleX(var(--facing));
   animation:
     crawl-around var(--crawl-duration) cubic-bezier(0.45, 0.04, 0.38, 1) var(--crawl-delay) infinite,
     bug-steps 720ms steps(1, end) infinite;
@@ -263,19 +263,19 @@
   0% {
     top: var(--y0);
     left: var(--x0);
-    transform: translate(-50%, -50%) rotate(var(--r0)) scaleX(var(--facing));
+    transform: translate(-50%, -50%) rotate(var(--r0)) scale(var(--sprite-scale)) scaleX(var(--facing));
   }
 
   48% {
     top: var(--y1);
     left: var(--x1);
-    transform: translate(-50%, -50%) rotate(var(--r1)) scaleX(var(--facing));
+    transform: translate(-50%, -50%) rotate(var(--r1)) scale(var(--sprite-scale)) scaleX(var(--facing));
   }
 
   100% {
     top: var(--y2);
     left: var(--x2);
-    transform: translate(-50%, -50%) rotate(var(--r2)) scaleX(var(--facing));
+    transform: translate(-50%, -50%) rotate(var(--r2)) scale(var(--sprite-scale)) scaleX(var(--facing));
   }
 }
 
@@ -342,6 +342,6 @@
     top: var(--y1);
     left: var(--x1);
     background-position: var(--sprite-x1) var(--sprite-y);
-    transform: translate(-50%, -50%) rotate(var(--r1)) scaleX(var(--facing));
+    transform: translate(-50%, -50%) rotate(var(--r1)) scale(var(--sprite-scale)) scaleX(var(--facing));
   }
 }

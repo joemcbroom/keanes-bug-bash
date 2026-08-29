@@ -3,6 +3,7 @@ import bugSheetUrl from './assets/bugs.png'
 import type { CSSProperties } from 'react'
 
 const BUG_CELL_SIZE = 32
+const BUG_VISIBLE_WINDOW = BUG_CELL_SIZE - 1
 const CRAWL_FRAME_COLS = [4, 5, 6, 7, 8, 9, 10, 11] as const
 
 type CrawlingBug = {
@@ -24,7 +25,8 @@ type CrawlingBug = {
 }
 
 type CrawlingBugStyle = CSSProperties & {
-  '--bug-size': string
+  '--sprite-window': string
+  '--sprite-scale': string
   '--sprite-x0': string
   '--sprite-x1': string
   '--sprite-x2': string
@@ -184,7 +186,8 @@ const bugs: CrawlingBug[] = [
 
 function getBugStyle(bug: CrawlingBug): CrawlingBugStyle {
   return {
-    '--bug-size': `${bug.size}px`,
+    '--sprite-window': `${BUG_VISIBLE_WINDOW}px`,
+    '--sprite-scale': `${bug.size / BUG_VISIBLE_WINDOW}`,
     '--sprite-x0': `-${CRAWL_FRAME_COLS[0] * BUG_CELL_SIZE}px`,
     '--sprite-x1': `-${CRAWL_FRAME_COLS[1] * BUG_CELL_SIZE}px`,
     '--sprite-x2': `-${CRAWL_FRAME_COLS[2] * BUG_CELL_SIZE}px`,

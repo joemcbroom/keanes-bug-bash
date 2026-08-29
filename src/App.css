@@ -62,7 +62,7 @@
   transform: translate(-50%, -50%) rotate(var(--r0)) scaleX(var(--facing));
   animation:
     crawl-around var(--crawl-duration) cubic-bezier(0.45, 0.04, 0.38, 1) var(--crawl-delay) infinite,
-    bug-steps 420ms steps(1, end) infinite;
+    bug-steps 720ms steps(1, end) infinite;
 }
 
 .invite-card {
@@ -284,16 +284,32 @@
     background-position: var(--sprite-x0) var(--sprite-y);
   }
 
-  25% {
+  12.5% {
     background-position: var(--sprite-x1) var(--sprite-y);
   }
 
-  50% {
+  25% {
     background-position: var(--sprite-x2) var(--sprite-y);
   }
 
-  75% {
+  37.5% {
     background-position: var(--sprite-x3) var(--sprite-y);
+  }
+
+  50% {
+    background-position: var(--sprite-x4) var(--sprite-y);
+  }
+
+  62.5% {
+    background-position: var(--sprite-x5) var(--sprite-y);
+  }
+
+  75% {
+    background-position: var(--sprite-x6) var(--sprite-y);
+  }
+
+  87.5% {
+    background-position: var(--sprite-x7) var(--sprite-y);
   }
 
   100% {

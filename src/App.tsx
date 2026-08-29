@@ -3,12 +3,12 @@ import bugSheetUrl from './assets/bugs.png'
 import type { CSSProperties } from 'react'
 
 const BUG_CELL_SIZE = 32
+const CRAWL_FRAME_COLS = [4, 5, 6, 7, 8, 9, 10, 11] as const
 
 type CrawlingBug = {
   id: string
   row: number
   size: number
-  frameCols: readonly [number, number, number, number]
   x0: string
   x1: string
   x2: string
@@ -29,6 +29,10 @@ type CrawlingBugStyle = CSSProperties & {
   '--sprite-x1': string
   '--sprite-x2': string
   '--sprite-x3': string
+  '--sprite-x4': string
+  '--sprite-x5': string
+  '--sprite-x6': string
+  '--sprite-x7': string
   '--sprite-y': string
   '--x0': string
   '--x1': string
@@ -49,7 +53,6 @@ const bugs: CrawlingBug[] = [
     id: 'bee-loop',
     row: 0,
     size: 34,
-    frameCols: [0, 1, 2, 1],
     x0: '-38px',
     x1: '210px',
     x2: '446px',
@@ -66,7 +69,6 @@ const bugs: CrawlingBug[] = [
     id: 'ladybug-stroll',
     row: 12,
     size: 30,
-    frameCols: [0, 1, 2, 1],
     x0: '420px',
     x1: '160px',
     x2: '-44px',
@@ -84,7 +86,6 @@ const bugs: CrawlingBug[] = [
     id: 'gold-beetle',
     row: 4,
     size: 32,
-    frameCols: [0, 1, 2, 1],
     x0: '-42px',
     x1: '72px',
     x2: '438px',
@@ -101,7 +102,6 @@ const bugs: CrawlingBug[] = [
     id: 'tiny-ant',
     row: 10,
     size: 22,
-    frameCols: [0, 1, 2, 1],
     x0: '72px',
     x1: '22px',
     x2: '86px',
@@ -118,7 +118,6 @@ const bugs: CrawlingBug[] = [
     id: 'red-beetle',
     row: 6,
     size: 28,
-    frameCols: [0, 1, 2, 1],
     x0: '112%',
     x1: '82%',
     x2: '-36px',
@@ -136,7 +135,6 @@ const bugs: CrawlingBug[] = [
     id: 'pool-bug',
     row: 8,
     size: 32,
-    frameCols: [0, 1, 2, 1],
     x0: '336px',
     x1: '356px',
     x2: '308px',
@@ -153,7 +151,6 @@ const bugs: CrawlingBug[] = [
     id: 'silver-critter',
     row: 2,
     size: 26,
-    frameCols: [0, 1, 2, 1],
     x0: '18px',
     x1: '310px',
     x2: '462px',
@@ -170,7 +167,6 @@ const bugs: CrawlingBug[] = [
     id: 'mini-wanderer',
     row: 14,
     size: 20,
-    frameCols: [0, 1, 2, 1],
     x0: '102%',
     x1: '62%',
     x2: '-32px',
@@ -189,10 +185,14 @@ const bugs: CrawlingBug[] = [
 function getBugStyle(bug: CrawlingBug): CrawlingBugStyle {
   return {
     '--bug-size': `${bug.size}px`,
-    '--sprite-x0': `-${bug.frameCols[0] * BUG_CELL_SIZE}px`,
-    '--sprite-x1': `-${bug.frameCols[1] * BUG_CELL_SIZE}px`,
-    '--sprite-x2': `-${bug.frameCols[2] * BUG_CELL_SIZE}px`,
-    '--sprite-x3': `-${bug.frameCols[3] * BUG_CELL_SIZE}px`,
+    '--sprite-x0': `-${CRAWL_FRAME_COLS[0] * BUG_CELL_SIZE}px`,
+    '--sprite-x1': `-${CRAWL_FRAME_COLS[1] * BUG_CELL_SIZE}px`,
+    '--sprite-x2': `-${CRAWL_FRAME_COLS[2] * BUG_CELL_SIZE}px`,
+    '--sprite-x3': `-${CRAWL_FRAME_COLS[3] * BUG_CELL_SIZE}px`,
+    '--sprite-x4': `-${CRAWL_FRAME_COLS[4] * BUG_CELL_SIZE}px`,
+    '--sprite-x5': `-${CRAWL_FRAME_COLS[5] * BUG_CELL_SIZE}px`,
+    '--sprite-x6': `-${CRAWL_FRAME_COLS[6] * BUG_CELL_SIZE}px`,
+    '--sprite-x7': `-${CRAWL_FRAME_COLS[7] * BUG_CELL_SIZE}px`,
     '--sprite-y': `-${bug.row * BUG_CELL_SIZE}px`,
     '--x0': bug.x0,
     '--x1': bug.x1,

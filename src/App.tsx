@@ -6,10 +6,9 @@ const BUG_CELL_SIZE = 32
 
 type CrawlingBug = {
   id: string
-  label: string
-  col: number
   row: number
   size: number
+  frameCols: readonly [number, number, number, number]
   x0: string
   x1: string
   x2: string
@@ -26,7 +25,10 @@ type CrawlingBug = {
 
 type CrawlingBugStyle = CSSProperties & {
   '--bug-size': string
-  '--sprite-x': string
+  '--sprite-x0': string
+  '--sprite-x1': string
+  '--sprite-x2': string
+  '--sprite-x3': string
   '--sprite-y': string
   '--x0': string
   '--x1': string
@@ -38,107 +40,103 @@ type CrawlingBugStyle = CSSProperties & {
   '--r1': string
   '--r2': string
   '--facing': string
+  '--crawl-duration': string
+  '--crawl-delay': string
 }
 
 const bugs: CrawlingBug[] = [
   {
     id: 'bee-loop',
-    label: 'busy bumblebee',
-    col: 0,
     row: 0,
     size: 34,
+    frameCols: [0, 1, 2, 1],
     x0: '-38px',
     x1: '210px',
     x2: '446px',
     y0: '28px',
     y1: '68px',
     y2: '24px',
-    r0: '8deg',
-    r1: '-12deg',
-    r2: '6deg',
+    r0: '98deg',
+    r1: '82deg',
+    r2: '78deg',
     duration: '18s',
     delay: '-5s',
   },
   {
     id: 'ladybug-stroll',
-    label: 'little ladybug',
-    col: 0,
     row: 12,
     size: 30,
+    frameCols: [0, 1, 2, 1],
     x0: '420px',
     x1: '160px',
     x2: '-44px',
     y0: '78%',
     y1: '70%',
     y2: '82%',
-    r0: '-122deg',
-    r1: '-100deg',
-    r2: '-130deg',
+    r0: '-104deg',
+    r1: '-82deg',
+    r2: '-112deg',
     duration: '21s',
     delay: '-12s',
     facing: '-1',
   },
   {
     id: 'gold-beetle',
-    label: 'gold beetle',
-    col: 1,
     row: 4,
     size: 32,
+    frameCols: [0, 1, 2, 1],
     x0: '-42px',
     x1: '72px',
     x2: '438px',
     y0: '58%',
     y1: '49%',
     y2: '55%',
-    r0: '76deg',
-    r1: '88deg',
-    r2: '72deg',
+    r0: '72deg',
+    r1: '106deg',
+    r2: '82deg',
     duration: '24s',
     delay: '-4s',
   },
   {
     id: 'tiny-ant',
-    label: 'marching ant',
-    col: 0,
     row: 10,
     size: 22,
+    frameCols: [0, 1, 2, 1],
     x0: '72px',
     x1: '22px',
     x2: '86px',
     y0: '104%',
     y1: '52%',
     y2: '-34px',
-    r0: '-8deg',
-    r1: '-16deg',
+    r0: '-6deg',
+    r1: '10deg',
     r2: '4deg',
     duration: '20s',
     delay: '-8s',
   },
   {
     id: 'red-beetle',
-    label: 'red beetle',
-    col: 2,
     row: 6,
     size: 28,
+    frameCols: [0, 1, 2, 1],
     x0: '112%',
     x1: '82%',
     x2: '-36px',
     y0: '42%',
     y1: '34%',
     y2: '46%',
-    r0: '-84deg',
-    r1: '-96deg',
-    r2: '-80deg',
+    r0: '-104deg',
+    r1: '-86deg',
+    r2: '-98deg',
     duration: '19s',
     delay: '-1s',
     facing: '-1',
   },
   {
     id: 'pool-bug',
-    label: 'water-loving bug',
-    col: 0,
     row: 8,
     size: 32,
+    frameCols: [0, 1, 2, 1],
     x0: '336px',
     x1: '356px',
     x2: '308px',
@@ -146,44 +144,42 @@ const bugs: CrawlingBug[] = [
     y1: '32%',
     y2: '106%',
     r0: '174deg',
-    r1: '188deg',
-    r2: '178deg',
+    r1: '186deg',
+    r2: '196deg',
     duration: '23s',
     delay: '-14s',
   },
   {
     id: 'silver-critter',
-    label: 'silver garden bug',
-    col: 1,
     row: 2,
     size: 26,
+    frameCols: [0, 1, 2, 1],
     x0: '18px',
     x1: '310px',
     x2: '462px',
     y0: '30%',
     y1: '22%',
     y2: '36%',
-    r0: '86deg',
-    r1: '78deg',
-    r2: '93deg',
+    r0: '78deg',
+    r1: '86deg',
+    r2: '112deg',
     duration: '17s',
     delay: '-9s',
   },
   {
     id: 'mini-wanderer',
-    label: 'teeny tiny bug',
-    col: 0,
     row: 14,
     size: 20,
+    frameCols: [0, 1, 2, 1],
     x0: '102%',
     x1: '62%',
     x2: '-32px',
     y0: '91%',
     y1: '94%',
     y2: '88%',
-    r0: '-90deg',
-    r1: '-74deg',
-    r2: '-99deg',
+    r0: '-86deg',
+    r1: '-96deg',
+    r2: '-82deg',
     duration: '16s',
     delay: '-6s',
     facing: '-1',
@@ -193,7 +189,10 @@ const bugs: CrawlingBug[] = [
 function getBugStyle(bug: CrawlingBug): CrawlingBugStyle {
   return {
     '--bug-size': `${bug.size}px`,
-    '--sprite-x': `-${bug.col * BUG_CELL_SIZE}px`,
+    '--sprite-x0': `-${bug.frameCols[0] * BUG_CELL_SIZE}px`,
+    '--sprite-x1': `-${bug.frameCols[1] * BUG_CELL_SIZE}px`,
+    '--sprite-x2': `-${bug.frameCols[2] * BUG_CELL_SIZE}px`,
+    '--sprite-x3': `-${bug.frameCols[3] * BUG_CELL_SIZE}px`,
     '--sprite-y': `-${bug.row * BUG_CELL_SIZE}px`,
     '--x0': bug.x0,
     '--x1': bug.x1,
@@ -205,8 +204,8 @@ function getBugStyle(bug: CrawlingBug): CrawlingBugStyle {
     '--r1': bug.r1,
     '--r2': bug.r2,
     '--facing': bug.facing ?? '1',
-    animationDelay: bug.delay,
-    animationDuration: bug.duration,
+    '--crawl-duration': bug.duration,
+    '--crawl-delay': bug.delay,
     backgroundImage: `url(${bugSheetUrl})`,
   }
 }
@@ -218,8 +217,6 @@ function BugField() {
         <span
           className="crawling-bug"
           key={bug.id}
-          role="img"
-          aria-label={bug.label}
           style={getBugStyle(bug)}
         />
       ))}

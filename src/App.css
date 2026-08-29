@@ -171,10 +171,10 @@
   background-repeat: repeat;
   background-position: center;
   background-size: 180px 180px;
-  opacity: 0.42;
+  opacity: 0.35;
   filter: blur(0.6px);
   mix-blend-mode: multiply;
-  transform: scale(1.5) rotate(-3deg);
+  transform: scale(1.35);
   pointer-events: none;
 }
 

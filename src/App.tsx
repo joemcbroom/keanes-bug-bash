@@ -2,7 +2,6 @@ import './App.css'
 import bush1Url from './assets/bush-1.png'
 import bush2Url from './assets/bush-2.png'
 import bugSheetUrl from './assets/bugs.png'
-import cardTextureUrl from './assets/card-texture.png'
 import leaf1Url from './assets/leaf-1.png'
 import leaf2Url from './assets/leaf-2.png'
 import leaf3Url from './assets/leaf-3.png'
@@ -270,11 +269,6 @@ function App() {
       <Foliage />
       <BugField />
       <section className="invite-card" aria-labelledby="invite-title">
-        <span
-          aria-hidden="true"
-          className="card-texture"
-          style={{ backgroundImage: `url(${cardTextureUrl})` }}
-        />
         <p className="eyebrow">Tiny explorers invited</p>
         <div className="badge">8</div>
 

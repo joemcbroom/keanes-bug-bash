@@ -295,7 +295,11 @@ function App() {
       <Foliage />
       <BugField />
       <section className="invite-card" aria-labelledby="invite-title">
-        <img alt="" aria-hidden="true" className="card-texture" src={cardTextureUrl} />
+        <span
+          aria-hidden="true"
+          className="card-texture"
+          style={{ backgroundImage: `url(${cardTextureUrl})` }}
+        />
         <p className="eyebrow">Tiny explorers invited</p>
         <div className="badge">8</div>
 

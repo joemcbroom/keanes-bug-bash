@@ -107,6 +107,7 @@
   position: absolute;
   top: var(--y0);
   left: var(--x0);
+  z-index: 0;
   width: var(--sprite-window);
   height: var(--sprite-window);
   background-repeat: no-repeat;
@@ -130,7 +131,7 @@
   background-size: 544px 512px;
   background-position: var(--sprite-x0) var(--shadow-sprite-y);
   image-rendering: pixelated;
-  opacity: 0.58;
+  opacity: 0.26;
   transform: translate(2px, 3px);
   animation: bug-shadow-steps 720ms steps(1, end) infinite;
 }

@@ -265,13 +265,33 @@
 .grass {
   position: absolute;
   inset: auto 0 0;
-  height: 84px;
+  height: 78px;
   z-index: 0;
   pointer-events: none;
-  background:
-    linear-gradient(112deg, transparent 0 45%, #2c8b39 46% 54%, transparent 55%) 0 12px / 32px 72px,
-    linear-gradient(72deg, transparent 0 44%, #3bad46 45% 55%, transparent 56%) 13px 8px / 34px 74px;
-  opacity: 0.64;
+  background: linear-gradient(180deg, #5fc955 0%, #2e9744 58%, #1d6f34 100%);
+  clip-path: polygon(
+    0 100%,
+    0 64%,
+    5% 36%,
+    10% 72%,
+    15% 30%,
+    20% 74%,
+    25% 42%,
+    30% 76%,
+    36% 28%,
+    42% 75%,
+    48% 38%,
+    54% 78%,
+    61% 31%,
+    67% 76%,
+    73% 44%,
+    79% 75%,
+    86% 33%,
+    92% 70%,
+    100% 40%,
+    100% 100%
+  );
+  opacity: 0.52;
 }
 
 @keyframes crawl-around {

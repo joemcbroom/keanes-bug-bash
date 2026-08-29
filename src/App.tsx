@@ -36,6 +36,7 @@ type CrawlingBugStyle = CSSProperties & {
   '--sprite-x6': string
   '--sprite-x7': string
   '--sprite-y': string
+  '--shadow-sprite-y': string
   '--x0': string
   '--x1': string
   '--x2': string
@@ -197,6 +198,7 @@ function getBugStyle(bug: CrawlingBug): CrawlingBugStyle {
     '--sprite-x6': `-${CRAWL_FRAME_COLS[6] * BUG_CELL_SIZE}px`,
     '--sprite-x7': `-${CRAWL_FRAME_COLS[7] * BUG_CELL_SIZE}px`,
     '--sprite-y': `-${bug.row * BUG_CELL_SIZE}px`,
+    '--shadow-sprite-y': `-${(bug.row + 1) * BUG_CELL_SIZE}px`,
     '--x0': bug.x0,
     '--x1': bug.x1,
     '--x2': bug.x2,

@@ -17,7 +17,6 @@ const CRAWL_FRAME_COLS = [4, 5, 6, 7, 8, 9, 10, 11] as const
 type CrawlingBug = {
   id: string
   row: number
-  size: number
   x0: string
   x1: string
   x2: string
@@ -63,7 +62,6 @@ const bugs: CrawlingBug[] = [
   {
     id: 'yellow-bug',
     row: 0,
-    size: 34,
     x0: '-38px',
     x1: '210px',
     x2: '446px',
@@ -79,7 +77,6 @@ const bugs: CrawlingBug[] = [
   {
     id: 'white-bug',
     row: 2,
-    size: 26,
     x0: '18px',
     x1: '310px',
     x2: '462px',
@@ -95,7 +92,6 @@ const bugs: CrawlingBug[] = [
   {
     id: 'yellow-bug-2',
     row: 4,
-    size: 32,
     x0: '-42px',
     x1: '72px',
     x2: '438px',
@@ -111,7 +107,6 @@ const bugs: CrawlingBug[] = [
   {
     id: 'red-bug',
     row: 6,
-    size: 28,
     x0: '112%',
     x1: '82%',
     x2: '-36px',
@@ -128,7 +123,6 @@ const bugs: CrawlingBug[] = [
   {
     id: 'brown-bug',
     row: 8,
-    size: 32,
     x0: '336px',
     x1: '356px',
     x2: '308px',
@@ -144,7 +138,6 @@ const bugs: CrawlingBug[] = [
   {
     id: 'gray-ant',
     row: 10,
-    size: 22,
     x0: '72px',
     x1: '22px',
     x2: '86px',
@@ -160,7 +153,6 @@ const bugs: CrawlingBug[] = [
   {
     id: 'lady-bug',
     row: 12,
-    size: 30,
     x0: '420px',
     x1: '160px',
     x2: '-44px',
@@ -177,7 +169,6 @@ const bugs: CrawlingBug[] = [
   {
     id: 'small-ant',
     row: 14,
-    size: 20,
     x0: '102%',
     x1: '62%',
     x2: '-32px',
@@ -212,7 +203,7 @@ const bushes = [
 function getBugStyle(bug: CrawlingBug): CrawlingBugStyle {
   return {
     '--sprite-window': `${BUG_VISIBLE_WINDOW}px`,
-    '--sprite-scale': `${bug.size / BUG_VISIBLE_WINDOW}`,
+    '--sprite-scale': `${BUG_CELL_SIZE / BUG_VISIBLE_WINDOW}`,
     '--sprite-x0': `-${CRAWL_FRAME_COLS[0] * BUG_CELL_SIZE}px`,
     '--sprite-x1': `-${CRAWL_FRAME_COLS[1] * BUG_CELL_SIZE}px`,
     '--sprite-x2': `-${CRAWL_FRAME_COLS[2] * BUG_CELL_SIZE}px`,

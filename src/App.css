@@ -1,0 +1,299 @@
+.invite-shell {
+  position: relative;
+  width: min(100vw, 430px);
+  min-height: 100svh;
+  margin: 0 auto;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 26px 18px 34px;
+  background:
+    radial-gradient(circle at 18% 16%, rgba(255, 230, 83, 0.75) 0 42px, transparent 43px),
+    radial-gradient(circle at 88% 8%, rgba(111, 203, 89, 0.7) 0 54px, transparent 55px),
+    radial-gradient(circle at 12% 88%, rgba(84, 192, 221, 0.45) 0 86px, transparent 88px),
+    linear-gradient(160deg, #fff7b7 0%, #d8f2a0 43%, #a7e7d0 100%);
+  isolation: isolate;
+}
+
+.invite-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background-image:
+    linear-gradient(115deg, rgba(85, 140, 46, 0.18) 0 2px, transparent 2px 54px),
+    linear-gradient(65deg, rgba(37, 121, 88, 0.13) 0 2px, transparent 2px 48px);
+  background-size: 74px 74px, 86px 86px;
+  opacity: 0.72;
+}
+
+.invite-shell::after {
+  content: '';
+  position: absolute;
+  inset: auto -20% -14% -20%;
+  height: 240px;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse at center, rgba(30, 151, 201, 0.62) 0 48%, transparent 49%),
+    radial-gradient(ellipse at 35% 48%, rgba(255, 255, 255, 0.45) 0 7%, transparent 8%),
+    radial-gradient(ellipse at 68% 58%, rgba(255, 255, 255, 0.35) 0 6%, transparent 7%);
+  filter: blur(0.2px);
+}
+
+.bug-field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.crawling-bug {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--bug-size);
+  height: var(--bug-size);
+  background-repeat: no-repeat;
+  background-size: 544px 512px;
+  background-position: var(--sprite-x) var(--sprite-y);
+  image-rendering: pixelated;
+  filter: drop-shadow(0 3px 1px rgba(42, 74, 25, 0.18));
+  animation-name: crawl-around;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.45, 0.04, 0.38, 1);
+}
+
+.invite-card {
+  position: relative;
+  width: min(100%, 354px);
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  padding: 34px 24px 26px;
+  border: 4px solid #314f25;
+  border-radius: 34px;
+  color: #213319;
+  text-align: center;
+  background:
+    linear-gradient(#fffbe1, #fffbe1) padding-box,
+    repeating-linear-gradient(
+        135deg,
+        #ffcc36 0 12px,
+        #f05d42 12px 24px,
+        #6cbf46 24px 36px,
+        #35a7c7 36px 48px
+      )
+      border-box;
+  box-shadow:
+    0 22px 50px rgba(35, 75, 38, 0.32),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.74);
+}
+
+.invite-card::before,
+.invite-card::after {
+  content: '';
+  position: absolute;
+  width: 92px;
+  height: 72px;
+  z-index: -1;
+  border-radius: 100% 0 100% 0;
+  background: linear-gradient(135deg, #47a447, #83d65d);
+  transform-origin: center;
+}
+
+.invite-card::before {
+  top: -34px;
+  left: -28px;
+  transform: rotate(-28deg);
+}
+
+.invite-card::after {
+  right: -30px;
+  bottom: -28px;
+  transform: rotate(152deg);
+}
+
+.eyebrow {
+  margin: 0;
+  padding: 8px 13px;
+  border: 2px dashed rgba(49, 79, 37, 0.45);
+  border-radius: 999px;
+  background: #edf7c9;
+  color: #42622b;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.badge {
+  display: grid;
+  place-items: center;
+  width: 78px;
+  height: 78px;
+  margin-top: -2px;
+  border: 4px solid #2e4b24;
+  border-radius: 50%;
+  color: #fff8cf;
+  background:
+    radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.48) 0 10px, transparent 11px),
+    linear-gradient(145deg, #ff6b41, #d9262e);
+  box-shadow: 0 8px 0 #91321f;
+  font-family: 'Arial Rounded MT Bold', 'Trebuchet MS', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  transform: rotate(4deg);
+}
+
+.invite-card h1 {
+  margin: 0;
+  color: #233719;
+  font-family: 'Arial Rounded MT Bold', 'Trebuchet MS', system-ui, sans-serif;
+  font-size: clamp(3rem, 17vw, 4.6rem);
+  font-weight: 950;
+  letter-spacing: -0.08em;
+  line-height: 0.83;
+  text-shadow: 0 4px 0 #ffd84f;
+}
+
+.invite-card h1 span {
+  display: block;
+  color: #0b7285;
+  font-size: 0.54em;
+  letter-spacing: 0.02em;
+  text-shadow: 0 3px 0 #b7f3ff;
+  text-transform: uppercase;
+}
+
+.intro {
+  max-width: 16rem;
+  margin: 2px 0 0;
+  color: #46602d;
+  font-size: 1.12rem;
+  font-weight: 800;
+  line-height: 1.28;
+}
+
+.event-details {
+  display: grid;
+  width: 100%;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.event-details div {
+  display: grid;
+  gap: 3px;
+  padding: 14px 16px;
+  border: 2px solid rgba(35, 55, 25, 0.2);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 14px 14px, rgba(255, 255, 255, 0.82) 0 4px, transparent 5px),
+    linear-gradient(135deg, rgba(253, 223, 92, 0.48), rgba(166, 225, 100, 0.46));
+  box-shadow: inset 0 -3px rgba(49, 79, 37, 0.08);
+}
+
+.detail-label {
+  color: #668037;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.event-details strong {
+  color: #24391c;
+  font-size: 1.04rem;
+  line-height: 1.14;
+}
+
+.swimsuit-callout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 22px;
+  color: #063946;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.72) 0 7px, transparent 8px),
+    linear-gradient(135deg, #85e5ff, #28b7d3);
+  box-shadow: 0 7px 0 #158aa1;
+}
+
+.swimsuit-callout p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 950;
+  line-height: 1.14;
+}
+
+.splash {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 2rem;
+  font-weight: 950;
+  line-height: 0.5;
+}
+
+.closing-note {
+  margin: 0;
+  color: #5c7134;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.grass {
+  position: absolute;
+  inset: auto 0 0;
+  height: 84px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(112deg, transparent 0 45%, #2c8b39 46% 54%, transparent 55%) 0 12px / 32px 72px,
+    linear-gradient(72deg, transparent 0 44%, #3bad46 45% 55%, transparent 56%) 13px 8px / 34px 74px;
+  opacity: 0.64;
+}
+
+@keyframes crawl-around {
+  0% {
+    transform: translate3d(var(--x0), var(--y0), 0) rotate(var(--r0)) scaleX(var(--facing));
+  }
+
+  48% {
+    transform: translate3d(var(--x1), var(--y1), 0) rotate(var(--r1)) scaleX(var(--facing));
+  }
+
+  100% {
+    transform: translate3d(var(--x2), var(--y2), 0) rotate(var(--r2)) scaleX(var(--facing));
+  }
+}
+
+@media (min-width: 640px) {
+  .invite-shell {
+    min-height: min(100svh, 900px);
+    border: 10px solid rgba(38, 69, 31, 0.32);
+    border-radius: 38px;
+    box-shadow: 0 28px 80px rgba(21, 48, 28, 0.35);
+  }
+}
+
+@media (max-width: 360px) {
+  .invite-card {
+    padding-inline: 19px;
+  }
+
+  .invite-card h1 {
+    font-size: 2.78rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crawling-bug {
+    animation: none;
+    transform: translate3d(var(--x1), var(--y1), 0) rotate(var(--r1)) scaleX(var(--facing));
+  }
+}

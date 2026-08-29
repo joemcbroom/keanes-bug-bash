@@ -169,7 +169,7 @@
   inset: -12%;
   z-index: 0;
   background-repeat: repeat;
-  background-position: top left;
+  background-position: center;
   background-size: 180px 180px;
   opacity: 0.5;
   filter: blur(0.6px);

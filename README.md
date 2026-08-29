@@ -18,6 +18,18 @@ npm run dev
 ```
 
 The app is built with Vite, React, and TypeScript. It is designed for phone screens and stays constrained to a mobile-sized frame on larger displays.
+
+## Deploy on Render
+
+This repo includes `render.yaml` for a Render static site named `keanes-bug-bash`.
+
+In Render, create a new Blueprint from this repository and select the current branch. Render will run:
+
+```bash
+npm ci && npm run build
+```
+
+and publish the `dist` directory. If the service name is available, Render will serve it at `https://keanes-bug-bash.onrender.com`.
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.

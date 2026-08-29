@@ -48,6 +48,61 @@
   pointer-events: none;
 }
 
+.foliage {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.leaf {
+  position: absolute;
+  display: block;
+  height: auto;
+  opacity: 0.48;
+  filter: blur(0.2px);
+}
+
+.leaf--1 {
+  top: -82px;
+  left: -96px;
+  width: 240px;
+  transform: rotate(18deg);
+}
+
+.leaf--2 {
+  top: 122px;
+  right: -126px;
+  width: 250px;
+  opacity: 0.5;
+  transform: rotate(-19deg);
+}
+
+.leaf--3 {
+  bottom: 118px;
+  left: -134px;
+  width: 278px;
+  opacity: 0.42;
+  transform: rotate(29deg);
+}
+
+.leaf--4 {
+  right: -132px;
+  bottom: 56px;
+  width: 250px;
+  opacity: 0.4;
+  transform: rotate(-38deg);
+}
+
+.leaf--5 {
+  top: -38px;
+  right: 54px;
+  width: 122px;
+  opacity: 0.34;
+  transform: rotate(146deg);
+}
+
 .crawling-bug {
   position: absolute;
   top: var(--y0);
@@ -82,6 +137,7 @@
 
 .invite-card {
   position: relative;
+  z-index: 2;
   width: min(100%, 354px);
   display: grid;
   justify-items: center;
@@ -104,30 +160,26 @@
   box-shadow:
     0 22px 50px rgba(35, 75, 38, 0.32),
     inset 0 0 0 2px rgba(255, 255, 255, 0.74);
+  overflow: hidden;
 }
 
-.invite-card::before,
-.invite-card::after {
-  content: '';
+.card-texture {
   position: absolute;
-  width: 92px;
-  height: 72px;
-  z-index: -1;
-  border-radius: 100% 0 100% 0;
-  background: linear-gradient(135deg, #47a447, #83d65d);
-  transform-origin: center;
+  inset: -12%;
+  z-index: 0;
+  width: 124%;
+  height: 124%;
+  object-fit: cover;
+  opacity: 0.16;
+  filter: blur(1.4px);
+  mix-blend-mode: multiply;
+  transform: scale(1.1) rotate(-4deg);
+  pointer-events: none;
 }
 
-.invite-card::before {
-  top: -34px;
-  left: -28px;
-  transform: rotate(-28deg);
-}
-
-.invite-card::after {
-  right: -30px;
-  bottom: -28px;
-  transform: rotate(152deg);
+.invite-card > :not(.card-texture) {
+  position: relative;
+  z-index: 1;
 }
 
 .eyebrow {
@@ -262,36 +314,51 @@
   font-weight: 800;
 }
 
-.grass {
+.bushes {
   position: absolute;
-  inset: auto 0 0;
-  height: 78px;
-  z-index: 0;
+  inset: auto -30px -42px;
+  z-index: 1;
+  height: 138px;
+  display: flex;
+  align-items: end;
+  justify-content: center;
   pointer-events: none;
-  background: linear-gradient(180deg, #5fc955 0%, #2e9744 58%, #1d6f34 100%);
-  clip-path: polygon(
-    0 100%,
-    0 64%,
-    5% 36%,
-    10% 72%,
-    15% 30%,
-    20% 74%,
-    25% 42%,
-    30% 76%,
-    36% 28%,
-    42% 75%,
-    48% 38%,
-    54% 78%,
-    61% 31%,
-    67% 76%,
-    73% 44%,
-    79% 75%,
-    86% 33%,
-    92% 70%,
-    100% 40%,
-    100% 100%
-  );
-  opacity: 0.52;
+  overflow: hidden;
+}
+
+.bush {
+  width: 138px;
+  height: auto;
+  margin-inline: -32px;
+  opacity: 0.74;
+  transform-origin: center bottom;
+  filter: drop-shadow(0 -2px 0 rgba(255, 255, 255, 0.1));
+}
+
+.bush--1 {
+  transform: rotate(-7deg) translateY(8px);
+}
+
+.bush--2 {
+  width: 124px;
+  opacity: 0.68;
+  transform: rotate(8deg) translateY(2px);
+}
+
+.bush--3 {
+  width: 152px;
+  opacity: 0.8;
+  transform: translateY(-8px);
+}
+
+.bush--4 {
+  width: 130px;
+  opacity: 0.7;
+  transform: rotate(-9deg) translateY(5px);
+}
+
+.bush--5 {
+  transform: rotate(7deg) translateY(10px);
 }
 
 @keyframes crawl-around {

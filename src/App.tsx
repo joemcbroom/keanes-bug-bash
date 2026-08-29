@@ -1,5 +1,13 @@
 import './App.css'
+import bush1Url from './assets/bush-1.png'
+import bush2Url from './assets/bush-2.png'
 import bugSheetUrl from './assets/bugs.png'
+import cardTextureUrl from './assets/card-texture.png'
+import leaf1Url from './assets/leaf-1.png'
+import leaf2Url from './assets/leaf-2.png'
+import leaf3Url from './assets/leaf-3.png'
+import leaf4Url from './assets/leaf-4.png'
+import leaf5Url from './assets/leaf-5.png'
 import type { CSSProperties } from 'react'
 
 const BUG_CELL_SIZE = 32
@@ -201,6 +209,22 @@ const bugs: CrawlingBug[] = [
   },
 ]
 
+const leaves = [
+  { src: leaf1Url, className: 'leaf leaf--1' },
+  { src: leaf2Url, className: 'leaf leaf--2' },
+  { src: leaf3Url, className: 'leaf leaf--3' },
+  { src: leaf4Url, className: 'leaf leaf--4' },
+  { src: leaf5Url, className: 'leaf leaf--5' },
+] as const
+
+const bushes = [
+  { src: bush1Url, className: 'bush bush--1' },
+  { src: bush2Url, className: 'bush bush--2' },
+  { src: bush1Url, className: 'bush bush--3' },
+  { src: bush2Url, className: 'bush bush--4' },
+  { src: bush1Url, className: 'bush bush--5' },
+] as const
+
 function getBugStyle(bug: CrawlingBug): CrawlingBugStyle {
   return {
     '--sprite-window': `${BUG_VISIBLE_WINDOW}px`,
@@ -245,11 +269,33 @@ function BugField() {
   )
 }
 
+function Foliage() {
+  return (
+    <div className="foliage" aria-hidden="true">
+      {leaves.map((leaf) => (
+        <img alt="" className={leaf.className} key={leaf.className} src={leaf.src} />
+      ))}
+    </div>
+  )
+}
+
+function Bushes() {
+  return (
+    <div className="bushes" aria-hidden="true">
+      {bushes.map((bush) => (
+        <img alt="" className={bush.className} key={bush.className} src={bush.src} />
+      ))}
+    </div>
+  )
+}
+
 function App() {
   return (
     <main className="invite-shell">
+      <Foliage />
       <BugField />
       <section className="invite-card" aria-labelledby="invite-title">
+        <img alt="" aria-hidden="true" className="card-texture" src={cardTextureUrl} />
         <p className="eyebrow">Tiny explorers invited</p>
         <div className="badge">8</div>
 
@@ -285,7 +331,7 @@ function App() {
 
         <p className="closing-note">Text back to RSVP for the critter crew.</p>
       </section>
-      <div className="grass" aria-hidden="true" />
+      <Bushes />
     </main>
   )
 }

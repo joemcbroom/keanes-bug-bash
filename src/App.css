@@ -115,6 +115,7 @@
 
 .crawling-bug {
   --lens-zoom: 1;
+  --lens-blur: 0px;
   position: absolute;
   top: var(--y0);
   left: var(--x0);
@@ -126,20 +127,15 @@
   background-position: var(--sprite-x0) var(--sprite-y);
   image-rendering: pixelated;
   isolation: isolate;
-  filter: blur(0);
+  filter: blur(var(--lens-blur));
   transform: translate(-50%, -50%) rotate(var(--r0))
     scale(calc(var(--sprite-scale) * var(--lens-zoom))) scaleX(var(--facing));
-  transition:
-    --lens-zoom 280ms ease-out,
-    filter 280ms ease-out;
   animation:
     crawl-around var(--crawl-duration) cubic-bezier(0.45, 0.04, 0.38, 1) var(--crawl-delay) infinite,
     bug-steps 720ms steps(1, end) infinite;
 }
 
 .crawling-bug.is-in-lens {
-  --lens-zoom: 1.7;
-  filter: blur(0.9px);
   z-index: 1;
 }
 
@@ -599,6 +595,7 @@
 
   .crawling-bug {
     --lens-zoom: 1;
+    --lens-blur: 0px;
     animation: none;
     filter: none;
     top: var(--y1);
@@ -610,7 +607,7 @@
 
   .crawling-bug.is-in-lens {
     --lens-zoom: 1;
-    filter: none;
+    --lens-blur: 0px;
   }
 
   .crawling-bug::before {

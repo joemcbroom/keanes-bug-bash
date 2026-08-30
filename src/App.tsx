@@ -284,31 +284,64 @@ function BugField({
     if (!field) return
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const tracks = new WeakMap<
+      HTMLElement,
+      { x: number; y: number; zoom: number; blur: number; t: number }
+    >()
     let frame = 0
+
+    const resetBug = (bug: HTMLElement) => {
+      bug.classList.remove('is-in-lens')
+      bug.style.setProperty('--lens-zoom', '1')
+      bug.style.setProperty('--lens-blur', '0px')
+      tracks.delete(bug)
+    }
 
     const tick = () => {
       const lens = magnifyWithLens.current
       const bugsInField = field.querySelectorAll<HTMLElement>('.crawling-bug')
 
       if (!lens || reducedMotion.matches) {
-        bugsInField.forEach((bug) => bug.classList.remove('is-in-lens'))
+        bugsInField.forEach(resetBug)
         frame = requestAnimationFrame(tick)
         return
       }
 
+      const now = performance.now()
       const lensBox = lens.getBoundingClientRect()
       const cx = lensBox.left + lensBox.width / 2
       const cy = lensBox.top + lensBox.height / 2
-      const radius = Math.min(lensBox.width, lensBox.height) * 0.46
-      const radiusSq = radius * radius
+      const radius = Math.min(lensBox.width, lensBox.height) * 0.55
+      const inner = radius * 0.72
 
       bugsInField.forEach((bug) => {
         const box = bug.getBoundingClientRect()
         const bx = box.left + box.width / 2
         const by = box.top + box.height / 2
-        const dx = bx - cx
-        const dy = by - cy
-        bug.classList.toggle('is-in-lens', dx * dx + dy * dy < radiusSq)
+        const dist = Math.hypot(bx - cx, by - cy)
+
+        let amount = 0
+        if (dist <= inner) {
+          amount = 1
+        } else if (dist < radius) {
+          const edge = (radius - dist) / (radius - inner)
+          amount = edge * edge * (3 - 2 * edge)
+        }
+
+        const targetZoom = 1 + 0.7 * amount
+        const targetBlur = 0.9 * amount
+        const prev = tracks.get(bug)
+        const dt = prev ? Math.max(0.001, (now - prev.t) / 1000) : 1 / 60
+        const speed = prev ? Math.hypot(bx - prev.x, by - prev.y) / dt : 40
+        // Faster crawls catch the target quicker; slow crawls ease longer.
+        const follow = 1 - Math.exp(-dt * (2.2 + speed * 0.05))
+        const zoom = prev ? prev.zoom + (targetZoom - prev.zoom) * follow : targetZoom
+        const blur = prev ? prev.blur + (targetBlur - prev.blur) * follow : targetBlur
+
+        tracks.set(bug, { x: bx, y: by, zoom, blur, t: now })
+        bug.style.setProperty('--lens-zoom', zoom.toFixed(3))
+        bug.style.setProperty('--lens-blur', `${blur.toFixed(2)}px`)
+        bug.classList.toggle('is-in-lens', amount > 0.02 || zoom > 1.02)
       })
 
       frame = requestAnimationFrame(tick)

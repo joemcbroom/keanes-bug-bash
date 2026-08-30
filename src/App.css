@@ -43,9 +43,13 @@
 .bug-field {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 3;
   overflow: hidden;
   pointer-events: none;
+}
+
+.bug-field--garden {
+  z-index: -1;
 }
 
 .foliage {
@@ -157,6 +161,8 @@
 }
 
 .invite-header {
+  position: relative;
+  z-index: 1;
   display: grid;
   justify-items: center;
   gap: 4px;
@@ -215,29 +221,31 @@
 }
 
 .mag-glass {
-  --glass-x: 15%;
-  --glass-y: 0%;
+  /* left: 50% - 50%*1.75 + 15%*1.75 = -11.25% of slot */
   position: absolute;
   top: 0;
-  left: 50%;
+  left: -11.25%;
   width: 175%;
   max-width: none;
-  transform: translate(calc(-50% + var(--glass-x)), var(--glass-y));
-  animation: glass-settle 2s cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
 }
 
 .mag-glass__img {
+  position: relative;
+  z-index: 4;
   display: block;
   width: 100%;
   height: auto;
   pointer-events: none;
   user-select: none;
+  transform-origin: 35% 35%;
+  animation: glass-settle 2s cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
 }
 
 .mag-glass__lens {
   position: absolute;
   top: 9.5%;
   left: 10%;
+  z-index: 2;
   width: 50%;
   aspect-ratio: 1;
   display: grid;
@@ -326,7 +334,7 @@
 
 .swimsuit-note {
   position: relative;
-  z-index: 3;
+  z-index: 1;
   max-width: 16rem;
   margin: 72px 0 0;
   color: #5a6e3a;
@@ -363,13 +371,14 @@
 @keyframes glass-settle {
   from {
     opacity: 0;
-    transform: translate(calc(-50% + var(--glass-x)), calc(var(--glass-y) + 120px))
-      rotate(-10deg);
+    transform: translateY(120px) rotate(-10deg);
+    filter: blur(10px);
   }
 
   to {
     opacity: 1;
-    transform: translate(calc(-50% + var(--glass-x)), var(--glass-y)) rotate(0deg);
+    transform: translateY(0) rotate(0deg);
+    filter: blur(0);
   }
 }
 
@@ -556,9 +565,10 @@
     animation: none;
   }
 
-  .mag-glass {
+  .mag-glass__img {
     animation: none;
-    transform: translate(calc(-50% + var(--glass-x)), var(--glass-y));
+    transform: none;
+    filter: none;
   }
 
   .mag-glass__lens > * {

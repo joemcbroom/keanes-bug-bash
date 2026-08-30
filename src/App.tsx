@@ -184,6 +184,42 @@ const bugs: CrawlingBug[] = [
   },
 ]
 
+function shiftCoord(value: string, pxDelta: number, percentDelta: number): string {
+  if (value.endsWith('%')) {
+    return `${Number.parseFloat(value) + percentDelta}%`
+  }
+  return `${Number.parseFloat(value) + pxDelta}px`
+}
+
+function shiftAngle(value: string, degDelta: number): string {
+  return `${Number.parseFloat(value) + degDelta}deg`
+}
+
+function shiftSeconds(value: string, secDelta: number): string {
+  return `${Number.parseFloat(value) + secDelta}s`
+}
+
+/** Garden-layer paths: same critters, nudged so they don't twin the card layer. */
+const gardenBugs: CrawlingBug[] = bugs.map((bug, index) => {
+  const side = index % 2 === 0 ? 1 : -1
+  return {
+    ...bug,
+    id: `garden-${bug.id}`,
+    x0: shiftCoord(bug.x0, side * 54, side * 8),
+    x1: shiftCoord(bug.x1, side * -38, side * -11),
+    x2: shiftCoord(bug.x2, side * 46, side * 7),
+    y0: shiftCoord(bug.y0, side * -22, side * 9),
+    y1: shiftCoord(bug.y1, side * 28, side * -7),
+    y2: shiftCoord(bug.y2, side * -18, side * 10),
+    r0: shiftAngle(bug.r0, side * 14),
+    r1: shiftAngle(bug.r1, side * -11),
+    r2: shiftAngle(bug.r2, side * 9),
+    duration: shiftSeconds(bug.duration, side * 3.5),
+    delay: shiftSeconds(bug.delay, side * -4.5 - index * 0.7),
+    facing: bug.facing === '-1' ? '1' : side === -1 ? '-1' : bug.facing,
+  }
+})
+
 const leaves = [
   { src: leaf1Url, className: 'leaf leaf--1' },
   { src: leaf2Url, className: 'leaf leaf--2' },
@@ -230,10 +266,16 @@ function getBugStyle(bug: CrawlingBug): CrawlingBugStyle {
   }
 }
 
-function BugField() {
+function BugField({
+  className = 'bug-field',
+  items = bugs,
+}: {
+  className?: string
+  items?: CrawlingBug[]
+}) {
   return (
-    <div className="bug-field" aria-hidden="true">
-      {bugs.map((bug) => (
+    <div className={className} aria-hidden="true">
+      {items.map((bug) => (
         <span
           className="crawling-bug"
           key={bug.id}
@@ -268,7 +310,7 @@ function App() {
   return (
     <main className="invite-shell">
       <Foliage />
-      <BugField />
+      <BugField className="bug-field bug-field--garden" items={gardenBugs} />
       <section className="invite-card" aria-labelledby="invite-title">
         <header className="invite-header">
           <svg
@@ -297,14 +339,10 @@ function App() {
           </h1>
         </header>
 
+        <BugField />
+
         <div className="mag-glass-slot">
           <div className="mag-glass">
-            <img
-              alt=""
-              aria-hidden="true"
-              className="mag-glass__img"
-              src={magGlassUrl}
-            />
             <div
               aria-label="Sunday, September 27, 2026 · 2PM"
               className="mag-glass__lens"
@@ -326,6 +364,12 @@ function App() {
                 Text back to RSVP for the critter crew.
               </p>
             </div>
+            <img
+              alt=""
+              aria-hidden="true"
+              className="mag-glass__img"
+              src={magGlassUrl}
+            />
           </div>
         </div>
         <p className="swimsuit-note">Don&apos;t forget to bring a swimsuit!</p>

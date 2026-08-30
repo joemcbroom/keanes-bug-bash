@@ -190,7 +190,6 @@
   background:
     radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.48) 0 10px, transparent 11px),
     linear-gradient(145deg, #ff6b41, #d9262e);
-  box-shadow: 0 8px 0 #91321f;
   font-family: 'Arial Rounded MT Bold', 'Trebuchet MS', sans-serif;
   font-size: 3rem;
   font-weight: 900;
@@ -213,14 +212,14 @@
 .badge::after {
   content: '';
   position: absolute;
-  bottom: -15px;
+  bottom: -16px;
   left: 50%;
-  width: 18px;
-  height: 18px;
-  border: 3px solid #2e4b24;
-  border-radius: 50% 50% 55% 55%;
-  background: #d9262e;
-  transform: translateX(-50%) rotate(45deg);
+  width: 0;
+  height: 0;
+  border-right: 11px solid transparent;
+  border-bottom: 17px solid #2e4b24;
+  border-left: 11px solid transparent;
+  transform: translateX(-50%) rotate(180deg);
 }
 
 .invite-card h1 {

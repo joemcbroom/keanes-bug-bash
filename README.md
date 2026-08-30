@@ -26,7 +26,7 @@ This repo includes `render.yaml` for a Render static site named `keanes-bug-bash
 In Render, create a new Blueprint from this repository and select the current branch. Render will run:
 
 ```bash
-corepack enable && pnpm install --frozen-lockfile && pnpm run build
+pnpm install --frozen-lockfile && pnpm run build
 ```
 
 and publish the `dist` directory. If the service name is available, Render will serve it at `https://keanes-bug-bash.onrender.com`.

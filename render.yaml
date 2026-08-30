@@ -2,7 +2,7 @@ services:
   - type: web
     name: keanes-bug-bash
     runtime: static
-    buildCommand: npm ci && npm run build
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm run build
     staticPublishPath: ./dist
     routes:
       - type: rewrite

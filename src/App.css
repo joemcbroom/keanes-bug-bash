@@ -259,7 +259,7 @@
   pointer-events: none;
   user-select: none;
   transform-origin: 35% 35%;
-  animation: glass-settle 2s cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+  animation: glass-settle 3.6s cubic-bezier(0.33, 0, 0.15, 1) 780ms both;
 }
 
 .mag-glass__lens {
@@ -288,7 +288,7 @@
 }
 
 .mag-glass__lens > * {
-  animation: lens-focus 2s cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+  animation: lens-focus 3.6s cubic-bezier(0.33, 0, 0.15, 1) 780ms both;
 }
 
 .lens-day {
@@ -392,13 +392,13 @@
 @keyframes glass-settle {
   from {
     opacity: 0;
-    transform: translateY(120px) rotate(-10deg);
+    transform: translate(-48px, 120px) rotate(-22deg);
     filter: blur(10px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0) rotate(0deg);
+    transform: translate(0, 0) rotate(0deg);
     filter: blur(0);
   }
 }
@@ -540,4 +540,5 @@
     --lens-zoom: 1;
     --lens-blur: 0px;
   }
+
 }

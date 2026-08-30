@@ -8,7 +8,7 @@ import leaf3Url from './assets/leaf-3.png'
 import leaf4Url from './assets/leaf-4.png'
 import leaf5Url from './assets/leaf-5.png'
 import magGlassUrl from './assets/magnifying-glass.png'
-import type { CSSProperties } from 'react'
+import { useEffect, useRef, type CSSProperties, type RefObject } from 'react'
 
 const BUG_CELL_SIZE = 32
 const BUG_VISIBLE_WINDOW = BUG_CELL_SIZE - 1
@@ -269,12 +269,57 @@ function getBugStyle(bug: CrawlingBug): CrawlingBugStyle {
 function BugField({
   className = 'bug-field',
   items = bugs,
+  magnifyWithLens,
 }: {
   className?: string
   items?: CrawlingBug[]
+  magnifyWithLens?: RefObject<HTMLElement | null>
 }) {
+  const fieldRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!magnifyWithLens) return
+
+    const field = fieldRef.current
+    if (!field) return
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let frame = 0
+
+    const tick = () => {
+      const lens = magnifyWithLens.current
+      const bugsInField = field.querySelectorAll<HTMLElement>('.crawling-bug')
+
+      if (!lens || reducedMotion.matches) {
+        bugsInField.forEach((bug) => bug.classList.remove('is-in-lens'))
+        frame = requestAnimationFrame(tick)
+        return
+      }
+
+      const lensBox = lens.getBoundingClientRect()
+      const cx = lensBox.left + lensBox.width / 2
+      const cy = lensBox.top + lensBox.height / 2
+      const radius = Math.min(lensBox.width, lensBox.height) * 0.46
+      const radiusSq = radius * radius
+
+      bugsInField.forEach((bug) => {
+        const box = bug.getBoundingClientRect()
+        const bx = box.left + box.width / 2
+        const by = box.top + box.height / 2
+        const dx = bx - cx
+        const dy = by - cy
+        bug.classList.toggle('is-in-lens', dx * dx + dy * dy < radiusSq)
+      })
+
+      frame = requestAnimationFrame(tick)
+    }
+
+    frame = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(frame)
+  }, [magnifyWithLens])
+
   return (
-    <div className={className} aria-hidden="true">
+    <div ref={fieldRef} className={className} aria-hidden="true">
       {items.map((bug) => (
         <span
           className="crawling-bug"
@@ -307,6 +352,8 @@ function Bushes() {
 }
 
 function App() {
+  const lensRef = useRef<HTMLDivElement>(null)
+
   return (
     <main className="invite-shell">
       <Foliage />
@@ -339,13 +386,14 @@ function App() {
           </h1>
         </header>
 
-        <BugField />
+        <BugField magnifyWithLens={lensRef} />
 
         <div className="mag-glass-slot">
           <div className="mag-glass">
             <div
               aria-label="Sunday, September 27, 2026 · 2PM"
               className="mag-glass__lens"
+              ref={lensRef}
             >
               <p className="lens-day">Sunday</p>
               <p className="lens-date">

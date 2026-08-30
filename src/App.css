@@ -107,7 +107,14 @@
   transform: rotate(146deg);
 }
 
+@property --lens-zoom {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+
 .crawling-bug {
+  --lens-zoom: 1;
   position: absolute;
   top: var(--y0);
   left: var(--x0);
@@ -119,10 +126,21 @@
   background-position: var(--sprite-x0) var(--sprite-y);
   image-rendering: pixelated;
   isolation: isolate;
-  transform: translate(-50%, -50%) rotate(var(--r0)) scale(var(--sprite-scale)) scaleX(var(--facing));
+  filter: blur(0);
+  transform: translate(-50%, -50%) rotate(var(--r0))
+    scale(calc(var(--sprite-scale) * var(--lens-zoom))) scaleX(var(--facing));
+  transition:
+    --lens-zoom 280ms ease-out,
+    filter 280ms ease-out;
   animation:
     crawl-around var(--crawl-duration) cubic-bezier(0.45, 0.04, 0.38, 1) var(--crawl-delay) infinite,
     bug-steps 720ms steps(1, end) infinite;
+}
+
+.crawling-bug.is-in-lens {
+  --lens-zoom: 1.7;
+  filter: blur(0.9px);
+  z-index: 1;
 }
 
 .crawling-bug::before {
@@ -443,19 +461,22 @@
   0% {
     top: var(--y0);
     left: var(--x0);
-    transform: translate(-50%, -50%) rotate(var(--r0)) scale(var(--sprite-scale)) scaleX(var(--facing));
+    transform: translate(-50%, -50%) rotate(var(--r0))
+      scale(calc(var(--sprite-scale) * var(--lens-zoom))) scaleX(var(--facing));
   }
 
   48% {
     top: var(--y1);
     left: var(--x1);
-    transform: translate(-50%, -50%) rotate(var(--r1)) scale(var(--sprite-scale)) scaleX(var(--facing));
+    transform: translate(-50%, -50%) rotate(var(--r1))
+      scale(calc(var(--sprite-scale) * var(--lens-zoom))) scaleX(var(--facing));
   }
 
   100% {
     top: var(--y2);
     left: var(--x2);
-    transform: translate(-50%, -50%) rotate(var(--r2)) scale(var(--sprite-scale)) scaleX(var(--facing));
+    transform: translate(-50%, -50%) rotate(var(--r2))
+      scale(calc(var(--sprite-scale) * var(--lens-zoom))) scaleX(var(--facing));
   }
 }
 
@@ -577,11 +598,19 @@
   }
 
   .crawling-bug {
+    --lens-zoom: 1;
     animation: none;
+    filter: none;
     top: var(--y1);
     left: var(--x1);
     background-position: var(--sprite-x1) var(--sprite-y);
-    transform: translate(-50%, -50%) rotate(var(--r1)) scale(var(--sprite-scale)) scaleX(var(--facing));
+    transform: translate(-50%, -50%) rotate(var(--r1))
+      scale(calc(var(--sprite-scale) * var(--lens-zoom))) scaleX(var(--facing));
+  }
+
+  .crawling-bug.is-in-lens {
+    --lens-zoom: 1;
+    filter: none;
   }
 
   .crawling-bug::before {

@@ -7,6 +7,7 @@ import leaf2Url from './assets/leaf-2.png'
 import leaf3Url from './assets/leaf-3.png'
 import leaf4Url from './assets/leaf-4.png'
 import leaf5Url from './assets/leaf-5.png'
+import magGlassUrl from './assets/magnifying-glass.png'
 import type { CSSProperties } from 'react'
 
 const BUG_CELL_SIZE = 32
@@ -269,40 +270,65 @@ function App() {
       <Foliage />
       <BugField />
       <section className="invite-card" aria-labelledby="invite-title">
-        <p className="eyebrow">Tiny explorers invited</p>
-        <div className="badge">8</div>
+        <header className="invite-header">
+          <svg
+            aria-label="Buzz, Hop and Crawl"
+            className="headline-arc"
+            role="img"
+            viewBox="0 0 360 70"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <path
+                d="M 8 54 Q 180 14 352 54"
+                fill="none"
+                id="headline-curve"
+              />
+            </defs>
+            <text className="headline-arc__text">
+              <textPath href="#headline-curve" startOffset="50%" textAnchor="middle">
+                Buzz, Hop &amp; Crawl
+              </textPath>
+            </text>
+          </svg>
+          <p className="invite-kicker">On over to</p>
+          <h1 id="invite-title" className="invite-name">
+            Keane&apos;s <span>8th Birthday</span>
+          </h1>
+        </header>
 
-        <h1 id="invite-title">
-          Keane's
-          <span>Bug Bash</span>
-        </h1>
-
-        <p className="intro">
-          Crawl, buzz, splash, and celebrate as Keane turns eight!
-        </p>
-
-        <div className="event-details" aria-label="Party details">
-          <div>
-            <span className="detail-label">Date</span>
-            <strong>Sunday, September 27, 2026</strong>
-          </div>
-          <div>
-            <span className="detail-label">Time</span>
-            <strong>2PM</strong>
+        <div className="mag-glass-slot">
+          <div className="mag-glass">
+            <img
+              alt=""
+              aria-hidden="true"
+              className="mag-glass__img"
+              src={magGlassUrl}
+            />
+            <div
+              aria-label="Sunday, September 27, 2026 · 2PM"
+              className="mag-glass__lens"
+            >
+              <p className="lens-day">Sunday</p>
+              <p className="lens-date">
+                <span>Sep</span>
+                <span aria-hidden="true" className="lens-pipe">
+                  |
+                </span>
+                <span className="lens-day-num">27</span>
+                <span aria-hidden="true" className="lens-pipe">
+                  |
+                </span>
+                <span>2 PM</span>
+              </p>
+              <p className="lens-rsvp">
+                <span className="lens-rsvp__label">RSVP</span>
+                Text back to RSVP for the critter crew.
+              </p>
+            </div>
           </div>
         </div>
-
-        <div className="swimsuit-callout">
-          <span className="splash" aria-hidden="true">
-            ~
-          </span>
-          <p>Don't forget to bring a swimsuit!</p>
-          <span className="splash" aria-hidden="true">
-            ~
-          </span>
-        </div>
-
-        <p className="closing-note">Text back to RSVP for the critter crew.</p>
+        <p className="swimsuit-note">Don&apos;t forget to bring a swimsuit!</p>
       </section>
       <Bushes />
     </main>

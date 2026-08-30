@@ -178,13 +178,14 @@
 }
 
 .badge {
+  position: relative;
   display: grid;
   place-items: center;
-  width: 78px;
-  height: 78px;
+  width: 82px;
+  height: 92px;
   margin-top: -2px;
   border: 4px solid #2e4b24;
-  border-radius: 50%;
+  border-radius: 54% 54% 50% 50%;
   color: #fff8cf;
   background:
     radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.48) 0 10px, transparent 11px),
@@ -195,6 +196,31 @@
   font-weight: 900;
   line-height: 1;
   transform: rotate(4deg);
+}
+
+.badge::before {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  width: 28px;
+  height: 48px;
+  border-left: 2px solid rgba(35, 55, 25, 0.42);
+  border-radius: 0 0 0 100%;
+  transform: translateX(-2px) rotate(-8deg);
+}
+
+.badge::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  border: 3px solid #2e4b24;
+  border-radius: 50% 50% 55% 55%;
+  background: #d9262e;
+  transform: translateX(-50%) rotate(45deg);
 }
 
 .invite-card h1 {

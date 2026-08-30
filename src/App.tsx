@@ -13,6 +13,10 @@ import { useEffect, useRef, type CSSProperties, type RefObject } from 'react'
 const BUG_CELL_SIZE = 32
 const BUG_VISIBLE_WINDOW = BUG_CELL_SIZE - 1
 const CRAWL_FRAME_COLS = [4, 5, 6, 7, 8, 9, 10, 11] as const
+/** Keep in sync with `.mag-glass__img` glass-settle timing in App.css */
+const GLASS_SETTLE_DELAY_MS = 780
+const GLASS_SETTLE_DURATION_MS = 3600
+const LENS_EFFECT_START_MS = GLASS_SETTLE_DELAY_MS + GLASS_SETTLE_DURATION_MS
 
 type CrawlingBug = {
   id: string
@@ -282,12 +286,14 @@ function BugField({
     >()
     const REF_STEP_SPEED = 72
     const FRAMES_PER_SEC_AT_REF = CRAWL_FRAME_COLS.length / 0.72
+    const effectStartedAt = performance.now()
     let frame = 0
 
     const tick = () => {
       const now = performance.now()
       const lens = magnifyWithLens?.current ?? null
-      const doLens = Boolean(lens) && !reducedMotion.matches
+      const glassSettled = now - effectStartedAt >= LENS_EFFECT_START_MS
+      const doLens = Boolean(lens) && !reducedMotion.matches && glassSettled
       let cx = 0
       let cy = 0
       let radius = 0
